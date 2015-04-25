@@ -3,7 +3,6 @@ package com.github.sigute.feedloader.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 import com.github.sigute.feedloader.R;
@@ -14,7 +13,7 @@ import com.github.sigute.feedloader.fragments.PostDetailFragment;
  *
  * @author Sigute
  */
-public class PostDetailActivity extends ActionBarActivity
+public class PostDetailActivity extends BaseActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState)

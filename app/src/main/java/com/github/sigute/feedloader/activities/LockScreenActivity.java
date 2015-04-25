@@ -2,7 +2,6 @@ package com.github.sigute.feedloader.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -17,7 +16,7 @@ import com.github.sigute.feedloader.R;
  *
  * @author Sigute
  */
-public class LockScreenActivity extends ActionBarActivity
+public class LockScreenActivity extends BaseActivity
 {
     private Button okButton;
     private EditText pinEntryEditText;
@@ -112,7 +111,8 @@ public class LockScreenActivity extends ActionBarActivity
     private void startFeedActivity()
     {
         Intent feedActivityIntent = new Intent(this, FeedActivity.class);
-        feedActivityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        feedActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(feedActivityIntent);
+        finish();
     }
 }

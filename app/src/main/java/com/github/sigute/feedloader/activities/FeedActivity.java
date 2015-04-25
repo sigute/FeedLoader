@@ -2,7 +2,6 @@ package com.github.sigute.feedloader.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,7 +17,7 @@ import com.github.sigute.feedloader.fragments.listfragment.FeedFragment;
  *
  * @author Sigute
  */
-public class FeedActivity extends ActionBarActivity implements FeedFragment.FeedFragmentCallbacks
+public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragmentCallbacks
 {
     private TextView errorView;
     private boolean tabletMode;
