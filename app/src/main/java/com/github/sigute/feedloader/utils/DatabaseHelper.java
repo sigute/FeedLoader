@@ -1,14 +1,17 @@
 package com.github.sigute.feedloader.utils;
 
+
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import com.github.sigute.feedloader.exceptions.DatabaseInsertException;
 import com.github.sigute.feedloader.exceptions.DatabaseSelectException;
 import com.github.sigute.feedloader.feed.Post;
+
+import net.sqlcipher.Cursor;
+import net.sqlcipher.database.SQLiteDatabase;
+import net.sqlcipher.database.SQLiteException;
+import net.sqlcipher.database.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,14 +52,48 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
 
     private static DatabaseHelper instance;
+    private static String pin;
+    private static SQLiteDatabase database;
 
-    public static synchronized DatabaseHelper getInstance(Context context)
+    public static synchronized boolean setUp(Context context, String pin)
+    {
+        //remove any older version
+        destroy();
+
+        instance = new DatabaseHelper(context.getApplicationContext());
+        instance.pin = pin;
+
+        //below code will throw an exception if the password is wrong
+        //if the password was not set or matches, it will open the database
+        try
+        {
+            database = instance.getWritableDatabase(pin);
+        }
+        catch (SQLiteException e)
+        {
+            //wrong password, probably
+            return false;
+        }
+
+        return true;
+    }
+
+    public static synchronized DatabaseHelper getInstance()
     {
         if (instance == null)
         {
-            instance = new DatabaseHelper(context.getApplicationContext());
+            throw new IllegalStateException("Database not initialised");
         }
         return instance;
+    }
+
+    public static synchronized void destroy()
+    {
+        if (instance != null)
+        {
+            database.close();
+            instance = null;
+        }
     }
 
     private DatabaseHelper(Context context)
@@ -77,26 +114,18 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public synchronized void insertFeed(List<Post> feed) throws DatabaseInsertException
     {
-        SQLiteDatabase database = instance.getWritableDatabase();
-        try
+        for (Post post : feed)
         {
-            for (Post post : feed)
+            ContentValues values = new ContentValues();
+            values.put(PostTableColumns.ID, post.getId());
+            values.put(PostTableColumns.USER_ID, post.getUserId());
+            values.put(PostTableColumns.TITLE, post.getTitle());
+            values.put(PostTableColumns.BODY, post.getBody());
+            long result = database.insert(TableNames.POST, null, values);
+            if (result == -1)
             {
-                ContentValues values = new ContentValues();
-                values.put(PostTableColumns.ID, post.getId());
-                values.put(PostTableColumns.USER_ID, post.getUserId());
-                values.put(PostTableColumns.TITLE, post.getTitle());
-                values.put(PostTableColumns.BODY, post.getBody());
-                long result = database.insert(TableNames.POST, null, values);
-                if (result == -1)
-                {
-                    throw new DatabaseInsertException("Post insert failed");
-                }
+                throw new DatabaseInsertException("Post insert failed");
             }
-        }
-        finally
-        {
-            database.close();
         }
     }
 
@@ -104,7 +133,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
     {
         List<Post> feed = new ArrayList<Post>();
 
-        SQLiteDatabase database = instance.getReadableDatabase();
         Cursor cursor = null;
         try
         {
@@ -140,7 +168,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
             {
                 cursor.close();
             }
-            database.close();
         }
 
         return feed;

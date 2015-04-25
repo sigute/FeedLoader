@@ -107,7 +107,7 @@ public class LoaderTask extends AsyncTask<Void, Void, Pair<List<Post>, String>>
     {
         try
         {
-            DatabaseHelper.getInstance(context).insertFeed(feed);
+            DatabaseHelper.getInstance().insertFeed(feed);
         }
         catch (DatabaseInsertException e)
         {
@@ -119,7 +119,7 @@ public class LoaderTask extends AsyncTask<Void, Void, Pair<List<Post>, String>>
     {
         try
         {
-            return DatabaseHelper.getInstance(context).selectFeed();
+            return DatabaseHelper.getInstance().selectFeed();
         }
         catch (DatabaseSelectException e)
         {

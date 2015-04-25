@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.WindowManager;
 
 import com.github.sigute.feedloader.other.MyApplication;
+import com.github.sigute.feedloader.utils.DatabaseHelper;
 
 /**
  * Base activity used to manage code common to all activities.
@@ -33,10 +34,14 @@ public class BaseActivity extends ActionBarActivity
     {
         super.onResume();
 
-        //check if the application was closed and return to lock screen if that's the case
+        //check if the application was closed
         MyApplication application = (MyApplication) getApplication();
         if (application.applicationWasClosed())
         {
+            //ensure database is closed
+            DatabaseHelper.destroy();
+
+            //ask for the pin again
             Intent feedActivityIntent = new Intent(this, LockScreenActivity.class);
             feedActivityIntent
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
