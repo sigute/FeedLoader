@@ -46,18 +46,14 @@ public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragm
         if (tabletMode)
         {
             Bundle arguments = new Bundle();
-            arguments.putInt(PostDetailFragment.PostKeys.ID,
-                    getIntent().getIntExtra(PostDetailFragment.PostKeys.ID, -1));
-            arguments.putInt(PostDetailFragment.PostKeys.USER_ID,
-                    getIntent().getIntExtra(PostDetailFragment.PostKeys.USER_ID, -1));
-            arguments.putString(PostDetailFragment.PostKeys.TITLE,
-                    getIntent().getStringExtra(PostDetailFragment.PostKeys.TITLE));
-            arguments.putString(PostDetailFragment.PostKeys.BODY,
-                    getIntent().getStringExtra(PostDetailFragment.PostKeys.BODY));
+            arguments.putInt(PostDetailFragment.PostKeys.ID, post.getId());
+            arguments.putInt(PostDetailFragment.PostKeys.USER_ID, post.getUserId());
+            arguments.putString(PostDetailFragment.PostKeys.TITLE, post.getTitle());
+            arguments.putString(PostDetailFragment.PostKeys.BODY, post.getBody());
             PostDetailFragment fragment = new PostDetailFragment();
             fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction().add(R.id.post_detail_container, fragment)
-                    .commit();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.post_detail_container, fragment).commit();
         }
         else
         {
