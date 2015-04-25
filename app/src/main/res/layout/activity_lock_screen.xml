@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/please_enter_pin"
+        android:id="@+id/text_view_lock_screen_please_enter_pin"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/primary_text"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view_lock_screen_please_enter_pin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:id="@+id/linearLayout">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberPassword"
+            android:ems="10"
+            android:id="@+id/edit_text_lock_screen_pin"
+            android:hint="@string/pin_hint"
+            android:maxLength="6"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/primary_text"
+            android:textColorHint="@color/secondary_text"
+            />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"
+            android:id="@+id/button_lock_screen_ok"
+            android:background="@drawable/drawable_button"
+            android:textColor="@color/light_text"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_view_lock_screen_error"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/accent"
+        android:padding="10dp"
+        android:text="@string/placeholder_error"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/light_text"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

@@ -7,8 +7,12 @@
     <string name="error_network_io">Network problem occurred.</string>
     <string name="error_server_response_read">Server problem occurred, could not read response.</string>
     <string name="error_json_parsing">Server problem occurred, could not parse out JSON response.</string>
+    <string name="error_wrong_pin">The PIN is not correct. Please try again.</string>
 
     <string name="posted_by">Post by:</string>
+    <string name="please_enter_pin">Please enter your PIN</string>
+    <string name="pin_hint">******</string>
+    <string name="ok">OK</string>
 
     <!-- Placeholder strings for putting in xml layouts to make them easier to arrange -->
     <string name="placeholder_error">Error</string>

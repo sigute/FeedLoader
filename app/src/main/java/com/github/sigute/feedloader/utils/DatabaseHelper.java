@@ -42,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             "CREATE TABLE  " + TableNames.POST + //
                     "(" + //
                     PostTableColumns.ID + " text not null, " + //
-                    PostTableColumns.USER_ID + " text not null" + //
+                    PostTableColumns.USER_ID + " text not null," + //
                     PostTableColumns.TITLE + " text not null, " + //
                     PostTableColumns.BODY + " text not null" + //
                     ");";
