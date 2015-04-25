@@ -1,8 +1,10 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- Changes action bar colour and text colour -->
+        <item name="colorPrimary">@color/primary_dark</item>
+        <item name="android:textColorPrimary">@color/light_text</item>>
     </style>
 
 </resources>

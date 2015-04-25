@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">FeedLoader</string>
-    <string name="title_post_detail">Post Detail</string>
+    <string name="title_post_detail">Post</string>
+
+    <string name="error_network_unavailable">Network is currently unavailable.</string>
+    <string name="error_server">Server problem occurred, server did not return correct response.</string>
+    <string name="error_network_io">Network problem occurred.</string>
+    <string name="error_server_response_read">Server problem occurred, could not read response.</string>
+    <string name="error_json_parsing">Server problem occurred, could not parse out JSON response.</string>
+
+    <string name="posted_by">Post by:</string>
+
+    <!-- Placeholder strings for putting in xml layouts to make them easier to arrange -->
+    <string name="placeholder_error">Error</string>
+    <string name="placeholder_title">id nihil consequatur molestias animi provident</string>
+    <string name="placeholder_body">nisi error delectus possimus ut eligendi vitae\nplaceat eos harum cupiditate facilis reprehenderit voluptatem beatae\nmodi ducimus quo illum voluptas eligendi\net nobis quia fugit</string>
+    <string name="placeholder_id">12</string>
+    <string name="placeholder_user_id">20</string>
 </resources>
