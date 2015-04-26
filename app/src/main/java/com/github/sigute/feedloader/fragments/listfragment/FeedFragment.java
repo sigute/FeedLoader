@@ -38,6 +38,11 @@ public class FeedFragment extends ListFragment implements LoaderTask.TaskListene
          * Callback for when an error occurs.
          */
         void onFailure(String errorMessage);
+
+        /**
+         * Callback for when a refresh is completed.
+         */
+        void onRefreshCompleted();
     }
 
     // A dummy implementation used only when this fragment is not attached to an activity. Does not do anything.
@@ -52,9 +57,16 @@ public class FeedFragment extends ListFragment implements LoaderTask.TaskListene
         public void onFailure(String errorMessage)
         {
         }
+
+        @Override
+        public void onRefreshCompleted()
+        {
+        }
     };
 
-    List<Post> feed;
+    private List<Post> feed;
+    private boolean tabletMode;
+    public static final String TABLET_MODE_KEY = "TABLET_MODE_KEY";
 
     public FeedFragment()
     {
@@ -64,7 +76,9 @@ public class FeedFragment extends ListFragment implements LoaderTask.TaskListene
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         setRetainInstance(true);
+        tabletMode = getArguments().getBoolean(TABLET_MODE_KEY, false);
         new LoaderTask(getActivity(), this).execute();
     }
 
@@ -72,6 +86,9 @@ public class FeedFragment extends ListFragment implements LoaderTask.TaskListene
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
+
+        getListView().setChoiceMode(
+                tabletMode ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
 
         if (savedInstanceState != null && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION))
         {
@@ -107,17 +124,8 @@ public class FeedFragment extends ListFragment implements LoaderTask.TaskListene
         super.onSaveInstanceState(outState);
         if (mActivatedPosition != ListView.INVALID_POSITION)
         {
-            // Serialize and persist the activated item position.
             outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
         }
-    }
-
-    public void setActivateOnItemClick(boolean activateOnItemClick)
-    {
-        // When setting CHOICE_MODE_SINGLE, ListView will automatically
-        // give items the 'activated' state when touched.
-        getListView().setChoiceMode(
-                activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
     }
 
     private void setActivatedPosition(int position)
@@ -153,6 +161,7 @@ public class FeedFragment extends ListFragment implements LoaderTask.TaskListene
         this.feed = feed;
         FeedAdapter adapter = new FeedAdapter(getActivity(), feed);
         setListAdapter(adapter);
+        callbacks.onRefreshCompleted();
     }
 
     @Override

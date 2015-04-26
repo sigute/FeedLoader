@@ -24,6 +24,7 @@ public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragm
 {
     private TextView errorView;
     private boolean tabletMode;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,9 +39,9 @@ public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragm
         {
             //this view present only in wide layout, so this must be tablet mode
             tabletMode = true;
-            ((FeedFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_feed))
-                    .setActivateOnItemClick(true);
         }
+
+        refreshFeed();
     }
 
     @Override
@@ -48,6 +49,7 @@ public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragm
     {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+        this.menu = menu;
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -57,6 +59,7 @@ public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragm
         switch (item.getItemId())
         {
             case R.id.action_refresh:
+                item.setEnabled(false);
                 refreshFeed();
                 return true;
             default:
@@ -66,7 +69,12 @@ public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragm
 
     private void refreshFeed()
     {
-        //TODO implement feed loading
+        FeedFragment fragment = new FeedFragment();
+        Bundle arguments = new Bundle();
+        arguments.putBoolean(FeedFragment.TABLET_MODE_KEY, tabletMode);
+        fragment.setArguments(arguments);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_feed_container, fragment).commit();
     }
 
     @Override
@@ -101,6 +109,12 @@ public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragm
         errorView.setText(errorMessage);
         errorView.setVisibility(View.VISIBLE);
 
-        findViewById(R.id.fragment_feed).setVisibility(View.GONE);
+        findViewById(R.id.fragment_feed_container).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onRefreshCompleted()
+    {
+        menu.findItem(R.id.action_refresh).setEnabled(true);
     }
 }

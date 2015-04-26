@@ -89,7 +89,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
     {
         if (instance != null)
         {
-            database.close();
+            if (database != null)
+            {
+                database.close();
+            }
             instance = null;
         }
     }

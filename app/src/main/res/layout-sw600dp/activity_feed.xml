@@ -14,13 +14,11 @@
     
     -->
 
-    <fragment
-        android:id="@+id/fragment_feed"
-        android:name="com.github.sigute.feedloader.fragments.listfragment.FeedFragment"
+    <FrameLayout
+        android:id="@+id/fragment_feed_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        tools:layout="@android:layout/list_content"/>
+        android:layout_weight="1"/>
 
     <FrameLayout
         android:id="@+id/post_detail_container"
