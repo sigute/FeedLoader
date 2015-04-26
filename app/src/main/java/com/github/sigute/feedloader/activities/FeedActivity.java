@@ -2,6 +2,9 @@ package com.github.sigute.feedloader.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -38,6 +41,32 @@ public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragm
             ((FeedFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_feed))
                     .setActivateOnItemClick(true);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.action_refresh:
+                refreshFeed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void refreshFeed()
+    {
+        //TODO implement feed loading
     }
 
     @Override
