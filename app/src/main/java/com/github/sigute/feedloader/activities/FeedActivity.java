@@ -60,6 +60,7 @@ public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragm
         switch (item.getItemId())
         {
             case R.id.action_refresh:
+                item.setEnabled(false);
                 errorView.setVisibility(View.GONE);
                 refreshFeed();
                 return true;
@@ -70,8 +71,6 @@ public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragm
 
     private void refreshFeed()
     {
-        menu.findItem(R.id.action_refresh).setEnabled(false);
-
         FeedFragment fragment = new FeedFragment();
         Bundle arguments = new Bundle();
         arguments.putBoolean(FeedFragment.TABLET_MODE_KEY, tabletMode);
