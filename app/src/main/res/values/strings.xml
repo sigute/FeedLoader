@@ -8,12 +8,16 @@
     <string name="error_server_response_read">Server problem occurred, could not read response.</string>
     <string name="error_json_parsing">Server problem occurred, could not parse out JSON response.</string>
     <string name="error_wrong_pin">The PIN is not correct. Please try again.</string>
+    <string name="error_banned_pin">The PIN is not allowed, as it is not complex enough. Please try a different PIN.</string>
+    <string name="error_pin_too_short">The PIN is too short. Please enter a longer PIN.</string>
 
     <string name="posted_by">Post by:</string>
     <string name="please_enter_pin">Please enter your PIN</string>
+    <string name="please_create_pin">Please create a PIN</string>
     <string name="pin_hint">******</string>
     <string name="ok">OK</string>
     <string name="refresh">Refresh</string>
+    <string name="password_restrictions">Your PIN must be 4-6 digits long.\nYou cannot easily use guessable PINs, such as 0000.</string>
 
     <!-- Placeholder strings for putting in xml layouts to make them easier to arrange -->
     <string name="placeholder_error">Error</string>

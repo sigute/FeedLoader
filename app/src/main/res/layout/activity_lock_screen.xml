@@ -57,9 +57,22 @@
         android:text="@string/placeholder_error"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/light_text"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/text_view_lock_screen_restrictions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/password_restrictions"
+        android:textColor="@color/secondary_text"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/text_view_lock_screen_error"
         android:layout_centerHorizontal="true"/>
 </RelativeLayout>

@@ -28,6 +28,7 @@ public class LockScreenActivity extends BaseActivity
     private Button okButton;
     private EditText pinEntryEditText;
     private TextView errorView;
+    private TextView pleaseEnterPINTextView;
 
     private Set<String> bannedPins;
 
@@ -39,11 +40,25 @@ public class LockScreenActivity extends BaseActivity
 
         okButton = (Button) findViewById(R.id.button_lock_screen_ok);
         pinEntryEditText = (EditText) findViewById(R.id.edit_text_lock_screen_pin);
+        pleaseEnterPINTextView = (TextView) findViewById(
+                R.id.text_view_lock_screen_please_enter_pin);
         errorView = (TextView) findViewById(R.id.text_view_lock_screen_error);
         errorView.setVisibility(View.GONE);
 
         setListeners();
         setUpBannedPins();
+
+        if (DatabaseHelper.doesDatabaseExist(this))
+        {
+            //need old PIN
+            pleaseEnterPINTextView.setText(getText(R.string.please_enter_pin));
+            findViewById(R.id.text_view_lock_screen_restrictions).setVisibility(View.GONE);
+        }
+        else
+        {
+            //ask for new PIN
+            pleaseEnterPINTextView.setText(getText(R.string.please_create_pin));
+        }
     }
 
     private void setListeners()
@@ -151,7 +166,6 @@ public class LockScreenActivity extends BaseActivity
                 "2000",// should this just ban the current year?
                 "2001", "2015", // yes, let's do that
                 "1122", //
-                "1313", //
                 "4321", "54321", "654321", //
                 "1313", //
                 "1010"};
@@ -166,16 +180,19 @@ public class LockScreenActivity extends BaseActivity
         // 4-6 characters, max length limited in xml
         if (pin.length() < 4)
         {
+            errorView.setText(getString(R.string.error_pin_too_short));
+            errorView.setVisibility(View.VISIBLE);
             return false;
         }
 
         if (bannedPins.contains(pin))
         {
-            //this should probably warn user, otherwise it will be confusing.
-            //future development?
+            errorView.setText(getString(R.string.error_banned_pin));
+            errorView.setVisibility(View.VISIBLE);
             return false;
         }
 
+        errorView.setVisibility(View.GONE);
         return true;
     }
 

@@ -13,6 +13,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteException;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     private static DatabaseHelper instance;
     private static SQLiteDatabase database;
+
+    public static boolean doesDatabaseExist(Context context)
+    {
+        File dbFile = context.getDatabasePath(DATABASE_NAME);
+        return dbFile.exists();
+    }
 
     public static synchronized boolean setUp(Context context, String pin)
     {
