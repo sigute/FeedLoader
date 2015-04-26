@@ -44,7 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     public static final String CREATE_POST_TABLE = //
             "CREATE TABLE  " + TableNames.POST + //
                     "(" + //
-                    PostTableColumns.ID + " text not null, " + //
+                    PostTableColumns.ID + " text not null unique, " + //
                     PostTableColumns.USER_ID + " text not null," + //
                     PostTableColumns.TITLE + " text not null, " + //
                     PostTableColumns.BODY + " text not null" + //
@@ -52,7 +52,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
 
     private static DatabaseHelper instance;
-    private static String pin;
     private static SQLiteDatabase database;
 
     public static synchronized boolean setUp(Context context, String pin)
@@ -61,7 +60,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
         destroy();
 
         instance = new DatabaseHelper(context.getApplicationContext());
-        instance.pin = pin;
 
         //below code will throw an exception if the password is wrong
         //if the password was not set or matches, it will open the database
@@ -121,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             values.put(PostTableColumns.USER_ID, post.getUserId());
             values.put(PostTableColumns.TITLE, post.getTitle());
             values.put(PostTableColumns.BODY, post.getBody());
-            long result = database.insert(TableNames.POST, null, values);
+            long result = database.replace(TableNames.POST, null, values);
             if (result == -1)
             {
                 throw new DatabaseInsertException("Post insert failed");
