@@ -26,6 +26,7 @@ public class PostDetailFragment extends Fragment
 
     }
 
+    //id is not used currently, but might be useful if in the future post comments need to be retrieved
     private int id;
     private int userId;
     private String title;
@@ -52,7 +53,6 @@ public class PostDetailFragment extends Fragment
     {
         View rootView = inflater.inflate(R.layout.fragment_post_detail, container, false);
 
-        //((TextView) rootView.findViewById(R.id.text_view_post_id)).setText("" + id);
         ((TextView) rootView.findViewById(R.id.text_view_post_user_id)).setText("" + userId);
         ((TextView) rootView.findViewById(R.id.text_view_post_title)).setText(title);
         ((TextView) rootView.findViewById(R.id.text_view_post_body)).setText(body);

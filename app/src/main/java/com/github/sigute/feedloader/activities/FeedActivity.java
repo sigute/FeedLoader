@@ -23,8 +23,9 @@ import com.github.sigute.feedloader.fragments.listfragment.FeedFragment;
 public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragmentCallbacks
 {
     private TextView errorView;
-    private boolean tabletMode;
     private Menu menu;
+
+    private boolean tabletMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,6 +61,7 @@ public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragm
         {
             case R.id.action_refresh:
                 item.setEnabled(false);
+                errorView.setVisibility(View.GONE);
                 refreshFeed();
                 return true;
             default:
@@ -82,6 +84,7 @@ public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragm
     {
         if (tabletMode)
         {
+            //add a fragment in the same layout
             Bundle arguments = new Bundle();
             arguments.putInt(PostDetailFragment.PostKeys.ID, post.getId());
             arguments.putInt(PostDetailFragment.PostKeys.USER_ID, post.getUserId());
@@ -94,6 +97,7 @@ public class FeedActivity extends BaseActivity implements FeedFragment.FeedFragm
         }
         else
         {
+            //open a new activity on phone
             Intent detailIntent = new Intent(this, PostDetailActivity.class);
             detailIntent.putExtra(PostDetailFragment.PostKeys.ID, post.getId());
             detailIntent.putExtra(PostDetailFragment.PostKeys.USER_ID, post.getUserId());

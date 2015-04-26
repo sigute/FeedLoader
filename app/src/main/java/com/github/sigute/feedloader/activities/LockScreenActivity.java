@@ -43,7 +43,6 @@ public class LockScreenActivity extends BaseActivity
         errorView.setVisibility(View.GONE);
 
         setListeners();
-
         setUpBannedPins();
     }
 
@@ -65,7 +64,6 @@ public class LockScreenActivity extends BaseActivity
                 }
             }
         });
-
 
         pinEntryEditText.setOnFocusChangeListener(new View.OnFocusChangeListener()
         {
@@ -188,6 +186,7 @@ public class LockScreenActivity extends BaseActivity
 
     private void startFeedActivity()
     {
+        //start activity and remove itself, as back button should navigate from app, rather than back to pin screen
         Intent feedActivityIntent = new Intent(this, FeedActivity.class);
         feedActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(feedActivityIntent);

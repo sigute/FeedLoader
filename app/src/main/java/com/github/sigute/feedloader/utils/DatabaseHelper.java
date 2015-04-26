@@ -20,6 +20,8 @@ import java.util.List;
  * Database helper - provides methods to insert and select feed posts for offline viewing.
  * Helps to ensure only once instance of database is open at a time.
  * Methods are synchronized to ensure there are no clashes.
+ * <p/>
+ * Uses SQLCipher to ensure offline data is secure. This also allows pin checking without storing an actual pin in plain text.
  *
  * @author Sigute
  */
